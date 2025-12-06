@@ -1,0 +1,27 @@
+# --- Core RAG Stack ---
+langchain
+langchain-core
+langchain-community
+langchain-openai
+langchain-text-splitters
+langsmith
+langgraph
+langgraph-checkpoint
+langgraph-sdk
+chromadb
+pypdf
+tiktoken
+openai
+cohere
+
+# --- Framework / Backend ---
+fastapi
+uvicorn
+python-dotenv
+
+# --- Utilities ---
+pydantic
+pydantic-settings
+requests
+numpy
+pandas

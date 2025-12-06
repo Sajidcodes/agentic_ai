@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.pyc
+
+# Environments
+ragvenv/
+.venv/
+.env
+
+# OS junk
+.DS_Store
+
+# Notebooks
+*.ipynb
+
+# Chroma / vector db (DO NOT COMMIT)
+chroma_db/
+rag/chroma_db/
+rag/db/
+*.sqlite3
+*.bin
+*.pickle
+
+# Logs / analytics
+*.log
+analytics_data.json
+metrics.json
