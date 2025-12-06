@@ -25,3 +25,19 @@ rag/db/
 *.log
 analytics_data.json
 metrics.json
+
+# ===== RAG Source Documents (DO NOT COMMIT) =====
+rag/data_ingestion/**/*.pdf
+rag/data_ingestion/*.pdf
+
+# ===== PRIVATE PROMPTS =====
+rag/prompts/
+
+# ===== TESTS & EVALS =====
+tests/
+eval_results.json
+langsmith_export.*
+requirements_frozen_backup.txt
+
+# ===== INTERNAL DASHBOARDS =====
+admin_dashboard.py
