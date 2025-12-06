@@ -24,6 +24,15 @@ BASE_DIR = Path(__file__).resolve().parent
 CHROMA_DIR = BASE_DIR / "db"
 PROMPTS_DIR = BASE_DIR / "prompts"
 
+SYSTEM_PROMPT = os.getenv("PROMPT_SYSTEM")
+SOCRATIC_PROMPT = os.getenv("PROMPT_SOCRATIC")
+RAG_PROMPT = os.getenv("PROMPT_RAG")
+
+if not SYSTEM_PROMPT:
+    raise RuntimeError("Missing PROMPT_SYSTEM")
+
+if not SOCRATIC_PROMPT:
+    raise RuntimeError("Missing PROMPT_SOCRATIC")
 # ----------------------------------------
 # COHERE RERANK
 # ----------------------------------------
