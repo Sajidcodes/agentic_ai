@@ -38,9 +38,15 @@ def load_and_split_pdf(pdf_path: Path, splitter):
     split_docs = splitter.split_documents(docs)
     print(f"   - Chunks: {len(split_docs)}")
 
+    # ✅ Normalize metadata so it's portable & clean
+    doc_id = pdf_path.stem.lower().replace(" ", "_")
+
     for d in split_docs:
-        d.metadata.setdefault("source", pdf_path.name)
-        d.metadata.setdefault("file_path", str(pdf_path))
+        d.metadata = {
+            "source": doc_id,          # e.g. "introduction_to_business_op_8d04gaa"
+            "file_name": pdf_path.name # original filename, if you want to show it
+        }
+
 
     return split_docs
 
