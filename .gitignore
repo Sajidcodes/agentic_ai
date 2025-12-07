@@ -16,7 +16,7 @@ ragvenv/
 # Chroma / vector db (DO NOT COMMIT)
 chroma_db/
 rag/chroma_db/
-# rag/db/
+rag/db/
 *.sqlite3
 *.bin
 *.pickle
