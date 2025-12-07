@@ -16,7 +16,7 @@ ragvenv/
 # Chroma / vector db (DO NOT COMMIT)
 chroma_db/
 rag/chroma_db/
-rag/db/
+# rag/db/
 *.sqlite3
 *.bin
 *.pickle
@@ -31,10 +31,7 @@ rag/data_ingestion/**/*.pdf
 rag/data_ingestion/*.pdf
 
 # ===== PRIVATE PROMPTS (TEXT ONLY) =====
-rag/prompts/rag_prompts.txt
-rag/prompts/socratic_prompt.txt
-rag/prompts/og_socratic_prompt.txt
-rag/prompts/final.txt
+rag/prompts/__pycache__
 
 # ===== TESTS & EVALS =====
 tests/
