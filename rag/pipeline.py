@@ -112,40 +112,22 @@ def format_docs(docs):
 import os
 from pathlib import Path
 
-def load_prompt(env_var: str, fallback_path: Path = None):
-    """
-    Load prompt from Render secret file if available,
-    otherwise fall back to local file (for dev).
-    """
-    secret_path = os.getenv(env_var)
-
-    if secret_path and Path(secret_path).exists():
-        return Path(secret_path).read_text()
-
-    if fallback_path and fallback_path.exists():
-        return fallback_path.read_text()
-
-    raise FileNotFoundError(
-        f"Prompt not found. Set {env_var} or provide fallback file."
-    )
-# ----------------------------------------
-# LOAD PROMPTS (RENDER + LOCAL SAFE)
-# ----------------------------------------
+def load_prompt(filename: str) -> str:
+    path = PROMPTS_DIR / filename
+    if not path.exists():
+        raise FileNotFoundError(f"Missing prompt file: {path}")
+    return path.read_text()
 
 direct_prompt = ChatPromptTemplate.from_template(
-    load_prompt(
-        env_var="RAG_PROMPT_FILE",
-        fallback_path=PROMPTS_DIR / "rag_prompts.txt",
-    )
+    load_prompt("rag_prompts.txt")
 )
 
 socratic_prompt = ChatPromptTemplate.from_template(
-    load_prompt(
-        env_var="SOCRATIC_PROMPT_FILE",
-        fallback_path=PROMPTS_DIR / "socratic_prompt.txt",
-    )
+    load_prompt("socratic_prompt.txt")
 )
-
+# ----------------------------------------
+# LOAD PROMPTS (RENDER + LOCAL SAFE)
+# ----------------------------------------
 
 llm = ChatOpenAI(model="gpt-4.1-mini", temperature=0.3)
 parser = StrOutputParser()
