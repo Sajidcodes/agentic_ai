@@ -30,8 +30,11 @@ metrics.json
 rag/data_ingestion/**/*.pdf
 rag/data_ingestion/*.pdf
 
-# ===== PRIVATE PROMPTS =====
-rag/prompts/
+# ===== PRIVATE PROMPTS (TEXT ONLY) =====
+rag/prompts/rag_prompts.txt
+rag/prompts/socratic_prompt.txt
+rag/prompts/og_socratic_prompt.txt
+rag/prompts/final.txt
 
 # ===== TESTS & EVALS =====
 tests/

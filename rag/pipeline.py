@@ -24,15 +24,15 @@ BASE_DIR = Path(__file__).resolve().parent
 CHROMA_DIR = BASE_DIR / "db"
 PROMPTS_DIR = BASE_DIR / "prompts"
 
-SYSTEM_PROMPT = os.getenv("PROMPT_SYSTEM")
-SOCRATIC_PROMPT = os.getenv("PROMPT_SOCRATIC")
-RAG_PROMPT = os.getenv("PROMPT_RAG")
+# SYSTEM_PROMPT = os.getenv("PROMPT_SYSTEM")
+# SOCRATIC_PROMPT = os.getenv("PROMPT_SOCRATIC")
+# RAG_PROMPT = os.getenv("PROMPT_RAG")
 
-if not SYSTEM_PROMPT:
-    raise RuntimeError("Missing PROMPT_SYSTEM")
+# if not SYSTEM_PROMPT:
+#     raise RuntimeError("Missing PROMPT_SYSTEM")
 
-if not SOCRATIC_PROMPT:
-    raise RuntimeError("Missing PROMPT_SOCRATIC")
+# if not SOCRATIC_PROMPT:
+#     raise RuntimeError("Missing PROMPT_SOCRATIC")
 # ----------------------------------------
 # COHERE RERANK
 # ----------------------------------------
@@ -109,16 +109,43 @@ def format_docs(docs):
 # ----------------------------------------
 # PROMPTS
 # ----------------------------------------
-def load_prompt(name):
-    return (PROMPTS_DIR / name).read_text()
+import os
+from pathlib import Path
+
+def load_prompt(env_var: str, fallback_path: Path = None):
+    """
+    Load prompt from Render secret file if available,
+    otherwise fall back to local file (for dev).
+    """
+    secret_path = os.getenv(env_var)
+
+    if secret_path and Path(secret_path).exists():
+        return Path(secret_path).read_text()
+
+    if fallback_path and fallback_path.exists():
+        return fallback_path.read_text()
+
+    raise FileNotFoundError(
+        f"Prompt not found. Set {env_var} or provide fallback file."
+    )
+# ----------------------------------------
+# LOAD PROMPTS (RENDER + LOCAL SAFE)
+# ----------------------------------------
 
 direct_prompt = ChatPromptTemplate.from_template(
-    load_prompt("rag_prompts.txt")
+    load_prompt(
+        env_var="RAG_PROMPT_FILE",
+        fallback_path=PROMPTS_DIR / "rag_prompts.txt",
+    )
 )
 
 socratic_prompt = ChatPromptTemplate.from_template(
-    load_prompt("socratic_prompt.txt")
+    load_prompt(
+        env_var="SOCRATIC_PROMPT_FILE",
+        fallback_path=PROMPTS_DIR / "socratic_prompt.txt",
+    )
 )
+
 
 llm = ChatOpenAI(model="gpt-4.1-mini", temperature=0.3)
 parser = StrOutputParser()
