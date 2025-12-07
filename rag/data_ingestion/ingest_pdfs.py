@@ -16,8 +16,8 @@ load_dotenv()
 # ---------------- CONFIG ---------------- #
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-PDF_DIR = PROJECT_ROOT / "data_ingestion"
-CHROMA_DIR = PROJECT_ROOT / "db"
+PDF_DIR = Path("/data/pdfs")
+CHROMA_DIR = Path("/data/chroma")
 
 CHUNK_SIZE = 1200
 CHUNK_OVERLAP = 200
